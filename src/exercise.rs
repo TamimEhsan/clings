@@ -4,7 +4,6 @@ use crossterm::{
     style::{Attribute, Color, ResetColor, SetAttribute, SetForegroundColor},
 };
 use std::io::{self, StdoutLock, Write};
-use std::process::Command;
 
 use crate::{
     cmd::CmdRunner,
@@ -112,53 +111,26 @@ pub trait RunnableExercise {
         if let Some(output) = output.as_deref_mut() {
             output.clear();
         }
-
-        // Create the target directory if it doesn't exist
-        std::fs::create_dir_all(&cmd_runner.target_dir)?;
-        
-        let target_path = cmd_runner.target_dir.join(bin_name);
         let exercise_path = self.path();
         
         // Compile C file using gcc
-        let mut compile_cmd = Command::new("gcc");
-        compile_cmd.args(["-Wall", "-Wextra", "-std=c99"]);
+        let mut compile_cmd = cmd_runner.gcc(bin_name, output.as_deref_mut());
+        
         
         if self.test() {
             compile_cmd.args(["-DTEST_MODE"]);
         }
         
-        compile_cmd.args(["-o", target_path.to_str().unwrap(), &exercise_path]);
+        compile_cmd.args([exercise_path.to_string().as_str()]);
         
         // Execute compilation
-        let compile_output = compile_cmd.output()?;
-        let compile_success = compile_output.status.success();
-        
-        if let Some(output) = output.as_deref_mut() {
-            if !compile_output.stdout.is_empty() {
-                output.extend_from_slice(&compile_output.stdout);
-            }
-            if !compile_output.stderr.is_empty() {
-                output.extend_from_slice(&compile_output.stderr);
-            }
-        }
+        let compile_success = compile_cmd.run("gcc compile")?;
         
         if !compile_success {
             return Ok(false);
         }
-        
         // Run the compiled binary
-        let run_output = Command::new(&target_path).output()?;
-        let run_success = run_output.status.success();
-        
-        if let Some(output) = output.as_deref_mut() {
-            if !run_output.stdout.is_empty() {
-                output.extend_from_slice(&run_output.stdout);
-            }
-            if !run_output.stderr.is_empty() {
-                output.extend_from_slice(&run_output.stderr);
-            }
-        }
-        
+        let run_success = run_bin(bin_name, output, cmd_runner)?;
         Ok(run_success)
     }
 

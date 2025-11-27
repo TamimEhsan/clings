@@ -54,15 +54,11 @@ struct CargoMetadata {
 }
 
 pub struct CmdRunner {
-    pub gcc: Command, // Changed from cargo to gcc
     pub target_dir: PathBuf, // Keep target_dir for binary output
-    pub output: Option<Vec<u8>>,
 }
 
 impl CmdRunner {
     pub fn build() -> Result<Self> {
-        let gcc = Command::new("gcc");
-        
         // Check if gcc is available
         if let Err(e) = Command::new("gcc").arg("--version").output() {
             bail!("Failed to find `gcc`. Make sure it's installed and available in PATH: {e}");
@@ -73,9 +69,7 @@ impl CmdRunner {
         fs::create_dir_all(&target_dir)?;
         
         Ok(Self {
-            gcc,
-            target_dir,
-            output: None,
+            target_dir
         })
     }
 
@@ -102,13 +96,26 @@ impl CmdRunner {
         CargoSubcommand { cmd, output }
     }
 
+    pub fn gcc<'out>(
+        &self,
+        bin_name: &str,
+        output: Option<&'out mut Vec<u8>>,
+    ) -> GccCommand<'out> {
+        let mut cmd = Command::new("gcc");
+        cmd.arg("-Wall").arg("-Wextra").arg("-std=c99");
+        let target_path = self.target_dir.join(bin_name);
+        cmd.arg("-o").arg(target_path);
+
+        GccCommand { cmd, output }
+    }
+
+
     /// The boolean in the returned `Result` is true if the command's exit status is success.
     pub fn run_debug_bin(&self, bin_name: &str, output: Option<&mut Vec<u8>>) -> Result<bool> {
         // 7 = "/debug/".len()
         let mut bin_path =
             PathBuf::with_capacity(self.target_dir.as_os_str().len() + 7 + bin_name.len());
         bin_path.push(&self.target_dir);
-        bin_path.push("debug");
         bin_path.push(bin_name);
 
         run_cmd(Command::new(&bin_path), &bin_path.to_string_lossy(), output)
@@ -136,6 +143,26 @@ impl CargoSubcommand<'_> {
         run_cmd(self.cmd, description, self.output)
     }
 }
+
+pub struct GccCommand<'out> {
+    cmd: Command,
+    output: Option<&'out mut Vec<u8>>,
+}
+
+impl GccCommand<'_> {
+    pub fn args<'arg, I>(&mut self, args: I) -> &mut Self
+    where
+        I: IntoIterator<Item = &'arg str>,
+    {
+        self.cmd.args(args);
+        self
+    }
+
+    pub fn run(self, description: &str) -> anyhow::Result<bool> {
+        run_cmd(self.cmd, description, self.output)
+    }
+}
+
 
 const CARGO_METADATA_ERR: &str = "Failed to run the command `cargo metadata …`
 Did you already install Rust?
