@@ -22,10 +22,10 @@ pub fn include_files(_: TokenStream) -> TokenStream {
 
     let exercise_files = exercises
         .iter()
-        .map(|exercise| format!("../exercises/{}/{}.rs", exercise.dir, exercise.name));
+        .map(|exercise| format!("../exercises/{}/{}.c", exercise.dir, exercise.name));
     let solution_files = exercises
         .iter()
-        .map(|exercise| format!("../solutions/{}/{}.rs", exercise.dir, exercise.name));
+        .map(|exercise| format!("../solutions/{}/{}.c", exercise.dir, exercise.name));
 
     let mut dirs = Vec::with_capacity(32);
     let mut dir_inds = vec![0; exercises.len()];

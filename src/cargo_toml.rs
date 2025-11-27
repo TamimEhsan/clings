@@ -43,7 +43,7 @@ pub fn append_bins(
             buf.push(b'/');
         }
         buf.extend_from_slice(exercise_info.name.as_bytes());
-        buf.extend_from_slice(b".rs\" },\n");
+        buf.extend_from_slice(b".c\" },\n");
 
         let sol_path = exercise_info.sol_path();
         if !Path::new(&sol_path).exists() {
@@ -61,7 +61,7 @@ pub fn append_bins(
             buf.push(b'/');
         }
         buf.extend_from_slice(exercise_info.name.as_bytes());
-        buf.extend_from_slice(b".rs\" },\n");
+        buf.extend_from_slice(b".c\" },\n");
     }
 }
 

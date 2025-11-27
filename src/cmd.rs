@@ -1,6 +1,7 @@
 use anyhow::{Context, Result, bail};
 use serde::Deserialize;
 use std::{
+    fs,
     io::{Read, pipe},
     path::PathBuf,
     process::{Command, Stdio},
@@ -53,34 +54,28 @@ struct CargoMetadata {
 }
 
 pub struct CmdRunner {
-    target_dir: PathBuf,
+    pub gcc: Command, // Changed from cargo to gcc
+    pub target_dir: PathBuf, // Keep target_dir for binary output
+    pub output: Option<Vec<u8>>,
 }
 
 impl CmdRunner {
     pub fn build() -> Result<Self> {
-        // Get the target directory from Cargo.
-        let metadata_output = Command::new("cargo")
-            .arg("metadata")
-            .arg("-q")
-            .arg("--format-version")
-            .arg("1")
-            .arg("--no-deps")
-            .stdin(Stdio::null())
-            .stderr(Stdio::inherit())
-            .output()
-            .context(CARGO_METADATA_ERR)?;
-
-        if !metadata_output.status.success() {
-            bail!("The command `cargo metadata …` failed. Are you in the `rustlings/` directory?");
+        let gcc = Command::new("gcc");
+        
+        // Check if gcc is available
+        if let Err(e) = Command::new("gcc").arg("--version").output() {
+            bail!("Failed to find `gcc`. Make sure it's installed and available in PATH: {e}");
         }
-
-        let metadata: CargoMetadata = serde_json::de::from_slice(&metadata_output.stdout)
-            .context(
-                "Failed to read the field `target_directory` from the output of the command `cargo metadata …`",
-            )?;
-
+        
+        // Create target directory for compiled binaries
+        let target_dir = PathBuf::from("target");
+        fs::create_dir_all(&target_dir)?;
+        
         Ok(Self {
-            target_dir: metadata.target_directory,
+            gcc,
+            target_dir,
+            output: None,
         })
     }
 

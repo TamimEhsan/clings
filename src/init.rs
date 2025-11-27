@@ -190,7 +190,7 @@ pub fn init() -> Result<()> {
     Ok(())
 }
 
-const INIT_SOLUTION_FILE: &[u8] = b"fn main() {
+const INIT_SOLUTION_FILE: &[u8] = b"void main() {
     // DON'T EDIT THIS SOLUTION FILE!
     // It will be automatically filled after you finish the exercise.
 }

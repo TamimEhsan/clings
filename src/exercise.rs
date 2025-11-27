@@ -4,6 +4,7 @@ use crossterm::{
     style::{Attribute, Color, ResetColor, SetAttribute, SetForegroundColor},
 };
 use std::io::{self, StdoutLock, Write};
+use std::process::Command;
 
 use crate::{
     cmd::CmdRunner,
@@ -98,6 +99,7 @@ pub trait RunnableExercise {
     fn dir(&self) -> Option<&str>;
     fn strict_clippy(&self) -> bool;
     fn test(&self) -> bool;
+    fn path(&self) -> String;
 
     // Compile, check and run the exercise or its solution (depending on `bin_name´).
     // The output is written to the `output` buffer after clearing it.
@@ -111,49 +113,53 @@ pub trait RunnableExercise {
             output.clear();
         }
 
-        let build_success = cmd_runner
-            .cargo("build", bin_name, output.as_deref_mut())
-            .run("cargo build …")?;
-        if !build_success {
+        // Create the target directory if it doesn't exist
+        std::fs::create_dir_all(&cmd_runner.target_dir)?;
+        
+        let target_path = cmd_runner.target_dir.join(bin_name);
+        let exercise_path = self.path();
+        
+        // Compile C file using gcc
+        let mut compile_cmd = Command::new("gcc");
+        compile_cmd.args(["-Wall", "-Wextra", "-std=c99"]);
+        
+        if self.test() {
+            compile_cmd.args(["-DTEST_MODE"]);
+        }
+        
+        compile_cmd.args(["-o", target_path.to_str().unwrap(), &exercise_path]);
+        
+        // Execute compilation
+        let compile_output = compile_cmd.output()?;
+        let compile_success = compile_output.status.success();
+        
+        if let Some(output) = output.as_deref_mut() {
+            if !compile_output.stdout.is_empty() {
+                output.extend_from_slice(&compile_output.stdout);
+            }
+            if !compile_output.stderr.is_empty() {
+                output.extend_from_slice(&compile_output.stderr);
+            }
+        }
+        
+        if !compile_success {
             return Ok(false);
         }
-
-        // Discard the compiler output because it will be shown again by `cargo test` or Clippy.
+        
+        // Run the compiled binary
+        let run_output = Command::new(&target_path).output()?;
+        let run_success = run_output.status.success();
+        
         if let Some(output) = output.as_deref_mut() {
-            output.clear();
-        }
-
-        if self.test() {
-            let output_is_some = output.is_some();
-            let mut test_cmd = cmd_runner.cargo("test", bin_name, output.as_deref_mut());
-            if output_is_some {
-                test_cmd.args(["--", "--color", "always", "--format", "pretty"]);
+            if !run_output.stdout.is_empty() {
+                output.extend_from_slice(&run_output.stdout);
             }
-            let test_success = test_cmd.run("cargo test …")?;
-            if !test_success {
-                run_bin(bin_name, output, cmd_runner)?;
-                return Ok(false);
-            }
-
-            // Discard the compiler output because it will be shown again by Clippy.
-            if let Some(output) = output.as_deref_mut() {
-                output.clear();
+            if !run_output.stderr.is_empty() {
+                output.extend_from_slice(&run_output.stderr);
             }
         }
-
-        let mut clippy_cmd = cmd_runner.cargo("clippy", bin_name, output.as_deref_mut());
-
-        // `--profile test` is required to also check code with `#[cfg(test)]`.
-        if FORCE_STRICT_CLIPPY || self.strict_clippy() {
-            clippy_cmd.args(["--profile", "test", "--", "-D", "warnings"]);
-        } else {
-            clippy_cmd.args(["--profile", "test"]);
-        }
-
-        let clippy_success = clippy_cmd.run("cargo clippy …")?;
-        let run_success = run_bin(bin_name, output, cmd_runner)?;
-
-        Ok(clippy_success && run_success)
+        
+        Ok(run_success)
     }
 
     /// Compile, check and run the exercise.
@@ -179,22 +185,22 @@ pub trait RunnableExercise {
 
         let mut path = if let Some(dir) = self.dir() {
             // 14 = 10 + 1 + 3
-            // solutions/ + / + .rs
-            let mut path = String::with_capacity(14 + dir.len() + name.len());
+            // solutions/ + / + .c
+            let mut path = String::with_capacity(13 + dir.len() + name.len());
             path.push_str("solutions/");
             path.push_str(dir);
             path.push('/');
             path
         } else {
             // 13 = 10 + 3
-            // solutions/ + .rs
-            let mut path = String::with_capacity(13 + name.len());
+            // solutions/ + .c
+            let mut path = String::with_capacity(12 + name.len());
             path.push_str("solutions/");
             path
         };
 
         path.push_str(name);
-        path.push_str(".rs");
+        path.push_str(".c"); // Changed from .rs to .c
 
         path
     }
@@ -219,5 +225,10 @@ impl RunnableExercise for Exercise {
     #[inline]
     fn test(&self) -> bool {
         self.test
+    }
+
+    #[inline]
+    fn path(&self) -> String {
+        self.path.to_string()
     }
 }

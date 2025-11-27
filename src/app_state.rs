@@ -108,7 +108,7 @@ impl AppState {
 
                     canonical_path.push_str(MAIN_SEPARATOR_STR);
                     canonical_path.push_str(name);
-                    canonical_path.push_str(".rs");
+                    canonical_path.push_str(".c");
                     canonical_path
                 });
 
@@ -601,7 +601,7 @@ mod tests {
         Exercise {
             dir: None,
             name: "0",
-            path: "exercises/0.rs",
+            path: "exercises/0.c",
             canonical_path: None,
             test: false,
             strict_clippy: false,

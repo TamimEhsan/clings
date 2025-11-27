@@ -119,7 +119,7 @@ impl notify::EventHandler for NotifyEventHandler {
             .filter_map(|path| {
                 let file_name = path.file_name()?.to_str()?.as_bytes();
 
-                let [file_name_without_ext @ .., b'.', b'r', b's'] = file_name else {
+                let [file_name_without_ext @ .., b'.', b'c'] = file_name else {
                     return None;
                 };
 

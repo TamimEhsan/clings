@@ -48,7 +48,7 @@ impl ExerciseInfo {
         };
 
         path.push_str(&self.name);
-        path.push_str(".rs");
+        path.push_str(".c");
 
         path
     }
@@ -73,6 +73,11 @@ impl RunnableExercise for ExerciseInfo {
     #[inline]
     fn test(&self) -> bool {
         self.test
+    }
+
+    #[inline]
+    fn path(&self) -> String {
+        self.path().to_string()
     }
 }
 
