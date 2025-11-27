@@ -1,5 +1,4 @@
 use anyhow::{Context, Result, bail};
-use serde::Deserialize;
 use std::{
     fs,
     io::{Read, pipe},
@@ -47,12 +46,6 @@ fn run_cmd(mut cmd: Command, description: &str, output: Option<&mut Vec<u8>>) ->
         .map(|status| status.success())
 }
 
-// Parses parts of the output of `cargo metadata`.
-#[derive(Deserialize)]
-struct CargoMetadata {
-    target_directory: PathBuf,
-}
-
 pub struct CmdRunner {
     pub target_dir: PathBuf, // Keep target_dir for binary output
 }
@@ -73,36 +66,13 @@ impl CmdRunner {
         })
     }
 
-    pub fn cargo<'out>(
-        &self,
-        subcommand: &str,
-        bin_name: &str,
-        output: Option<&'out mut Vec<u8>>,
-    ) -> CargoSubcommand<'out> {
-        let mut cmd = Command::new("cargo");
-        cmd.arg(subcommand).arg("-q").arg("--bin").arg(bin_name);
-
-        // A hack to make `cargo run` work when developing Rustlings.
-        #[cfg(debug_assertions)]
-        cmd.arg("--manifest-path")
-            .arg("dev/Cargo.toml")
-            .arg("--target-dir")
-            .arg(&self.target_dir);
-
-        if output.is_some() {
-            cmd.arg("--color").arg("always");
-        }
-
-        CargoSubcommand { cmd, output }
-    }
-
     pub fn gcc<'out>(
         &self,
         bin_name: &str,
         output: Option<&'out mut Vec<u8>>,
     ) -> GccCommand<'out> {
         let mut cmd = Command::new("gcc");
-        cmd.arg("-Wall").arg("-Wextra").arg("-std=c99");
+        cmd.arg("-Wall").arg("-Wextra").arg("-std=c99").arg("-DTEST_MODE");
         let target_path = self.target_dir.join(bin_name);
         cmd.arg("-o").arg(target_path);
 
@@ -111,7 +81,7 @@ impl CmdRunner {
 
 
     /// The boolean in the returned `Result` is true if the command's exit status is success.
-    pub fn run_debug_bin(&self, bin_name: &str, output: Option<&mut Vec<u8>>) -> Result<bool> {
+    pub fn run_bin(&self, bin_name: &str, output: Option<&mut Vec<u8>>) -> Result<bool> {
         // 7 = "/debug/".len()
         let mut bin_path =
             PathBuf::with_capacity(self.target_dir.as_os_str().len() + 7 + bin_name.len());
@@ -119,28 +89,6 @@ impl CmdRunner {
         bin_path.push(bin_name);
 
         run_cmd(Command::new(&bin_path), &bin_path.to_string_lossy(), output)
-    }
-}
-
-pub struct CargoSubcommand<'out> {
-    cmd: Command,
-    output: Option<&'out mut Vec<u8>>,
-}
-
-impl CargoSubcommand<'_> {
-    #[inline]
-    pub fn args<'arg, I>(&mut self, args: I) -> &mut Self
-    where
-        I: IntoIterator<Item = &'arg str>,
-    {
-        self.cmd.args(args);
-        self
-    }
-
-    /// The boolean in the returned `Result` is true if the command's exit status is success.
-    #[inline]
-    pub fn run(self, description: &str) -> Result<bool> {
-        run_cmd(self.cmd, description, self.output)
     }
 }
 
@@ -162,11 +110,6 @@ impl GccCommand<'_> {
         run_cmd(self.cmd, description, self.output)
     }
 }
-
-
-const CARGO_METADATA_ERR: &str = "Failed to run the command `cargo metadata …`
-Did you already install Rust?
-Try running `cargo --version` to diagnose the problem.";
 
 #[cfg(test)]
 mod tests {

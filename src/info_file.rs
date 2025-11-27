@@ -14,9 +14,6 @@ pub struct ExerciseInfo {
     /// Run `cargo test` on the exercise.
     #[serde(default = "default_true")]
     pub test: bool,
-    /// Deny all Clippy warnings.
-    #[serde(default)]
-    pub strict_clippy: bool,
     /// The exercise's hint to be shown to the user on request.
     pub hint: String,
     /// The exercise is already solved. Ignore it when checking that all exercises are unsolved.
@@ -63,11 +60,6 @@ impl RunnableExercise for ExerciseInfo {
     #[inline]
     fn dir(&self) -> Option<&str> {
         self.dir.as_deref()
-    }
-
-    #[inline]
-    fn strict_clippy(&self) -> bool {
-        self.strict_clippy
     }
 
     #[inline]

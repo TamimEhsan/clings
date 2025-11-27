@@ -46,7 +46,7 @@ fn run_bin(
         output.push(b'\n');
     }
 
-    let success = cmd_runner.run_debug_bin(bin_name, output.as_deref_mut())?;
+    let success = cmd_runner.run_bin(bin_name, output.as_deref_mut())?;
 
     if let Some(output) = output
         && !success
@@ -72,7 +72,6 @@ pub struct Exercise {
     pub path: &'static str,
     pub canonical_path: Option<String>,
     pub test: bool,
-    pub strict_clippy: bool,
     pub hint: &'static str,
     pub done: bool,
 }
@@ -96,7 +95,6 @@ impl Exercise {
 pub trait RunnableExercise {
     fn name(&self) -> &str;
     fn dir(&self) -> Option<&str>;
-    fn strict_clippy(&self) -> bool;
     fn test(&self) -> bool;
     fn path(&self) -> String;
 
@@ -115,11 +113,6 @@ pub trait RunnableExercise {
         
         // Compile C file using gcc
         let mut compile_cmd = cmd_runner.gcc(bin_name, output.as_deref_mut());
-        
-        
-        if self.test() {
-            compile_cmd.args(["-DTEST_MODE"]);
-        }
         
         compile_cmd.args([exercise_path.to_string().as_str()]);
         
@@ -187,11 +180,6 @@ impl RunnableExercise for Exercise {
     #[inline]
     fn dir(&self) -> Option<&str> {
         self.dir
-    }
-
-    #[inline]
-    fn strict_clippy(&self) -> bool {
-        self.strict_clippy
     }
 
     #[inline]

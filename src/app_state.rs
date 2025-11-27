@@ -118,7 +118,6 @@ impl AppState {
                     path,
                     canonical_path,
                     test: exercise_info.test,
-                    strict_clippy: exercise_info.strict_clippy,
                     hint,
                     // Updated below.
                     done: false,
@@ -604,7 +603,6 @@ mod tests {
             path: "exercises/0.c",
             canonical_path: None,
             test: false,
-            strict_clippy: false,
             hint: "",
             done: false,
         }
