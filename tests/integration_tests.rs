@@ -39,20 +39,20 @@ impl<'a> Cmd<'a> {
     }
 
     fn assert(&self, success: bool) {
-        let rustlings_bin = {
+        let clings_bin = {
             let mut path = env::current_exe().unwrap();
             // Pop test binary name
             path.pop();
             // Pop `/deps`
             path.pop();
 
-            path.push("rustlings");
+            path.push("clings");
             let mut path = path.into_os_string();
             path.push(EXE_SUFFIX);
             path
         };
 
-        let mut cmd = Command::new(rustlings_bin);
+        let mut cmd = Command::new(clings_bin);
 
         if let Some(current_dir) = self.current_dir {
             cmd.current_dir(current_dir);
@@ -168,10 +168,10 @@ fn init() {
     Cmd::default()
         .current_dir(test_dir)
         .args(&["init"])
-        .output(PartialStderr("`cd rustlings`"))
+        .output(PartialStderr("`cd clings`"))
         .fail();
 
-    let initialized_dir = format!("{test_dir}/rustlings");
+    let initialized_dir = format!("{test_dir}/clings");
 
     // Running `init` in the initialized directory.
     Cmd::default()

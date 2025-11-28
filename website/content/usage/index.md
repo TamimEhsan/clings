@@ -18,22 +18,22 @@ Ask for hints by entering `h` in the _watch mode_ 💡
 
 ## Watch Mode
 
-After the [initialization](@/setup/index.md#initialization), Clings can be launched by simply running the command `rustlings`.
+After the [initialization](@/setup/index.md#initialization), Clings can be launched by simply running the command `clings`.
 
 This will start the _watch mode_ which walks you through the exercises in a predefined order (what we think is best for newcomers).
 It will rerun the current exercise automatically every time you change the exercise's file in the `exercises/` directory.
 
 {% details(summary="If detecting file changes in the <code>exercises/</code> directory fails…") %}
 
-You can add the **`--manual-run`** flag (`rustlings --manual-run`) to manually rerun the current exercise by entering `r` in the watch mode.
+You can add the **`--manual-run`** flag (`clings --manual-run`) to manually rerun the current exercise by entering `r` in the watch mode.
 
-Please [report the issue](https://github.com/rust-lang/rustlings/issues/new) with some information about your operating system and whether you run Rustlings in a container or a virtual machine (e.g. WSL).
+Please [report the issue](https://github.com/tamimehsan/clings/issues/new) with some information about your operating system and whether you run Clings in a container or a virtual machine (e.g. WSL).
 
 {% end %}
 
 ## Exercise List
 
-In the [watch mode](#watch-mode) (after launching `rustlings`), you can enter `l` to open the interactive exercise list.
+In the [watch mode](#watch-mode) (after launching `clings`), you can enter `l` to open the interactive exercise list.
 
 The list allows you to…
 
@@ -49,7 +49,7 @@ If you need any help while doing the exercises and the builtin hints aren't help
 
 ## Continuing On
 
-Once you've completed Rustlings, put your new knowledge to good use!
-Continue practicing your Rust skills by building your own projects, contributing to Rustlings, or finding other open-source projects to contribute to.
+Once you've completed Clings, put your new knowledge to good use!
+Continue practicing your Rust skills by building your own projects, contributing to Clings, or finding other open-source projects to contribute to.
 
-> If you want to create your own Rustlings exercises, visit the [**community exercises**](@/community-exercises/index.md) page 🏗️
+> If you want to create your own Clings exercises, visit the [**community exercises**](@/community-exercises/index.md) page 🏗️

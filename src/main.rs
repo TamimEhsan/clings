@@ -25,21 +25,21 @@ mod watch;
 
 const CURRENT_FORMAT_VERSION: u8 = 1;
 
-/// Rustlings is a collection of small exercises to get you used to writing and reading Rust code
+/// Clings is a collection of small exercises to get you used to writing and reading Rust code
 #[derive(Parser)]
 #[command(version)]
 struct Args {
     #[command(subcommand)]
     command: Option<Subcommands>,
     /// Manually run the current exercise using `r` in the watch mode.
-    /// Only use this if Rustlings fails to detect exercise file changes.
+    /// Only use this if Clings fails to detect exercise file changes.
     #[arg(long)]
     manual_run: bool,
 }
 
 #[derive(Subcommand)]
 enum Subcommands {
-    /// Initialize the official Rustlings exercises
+    /// Initialize the official Clings exercises
     Init,
     /// Run a single exercise. Runs the next pending exercise if the exercise name is not specified
     Run {
@@ -58,7 +58,7 @@ enum Subcommands {
         /// The name of the exercise
         name: Option<String>,
     },
-    /// Commands for developing (community) Rustlings exercises
+    /// Commands for developing (community) Clings exercises
     #[command(subcommand)]
     Dev(DevCommands),
 }
@@ -66,7 +66,7 @@ enum Subcommands {
 fn main() -> Result<ExitCode> {
     let args = Args::parse();
 
-    if cfg!(not(debug_assertions)) && Path::new("dev/rustlings-repo.txt").exists() {
+    if cfg!(not(debug_assertions)) && Path::new("dev/clings-repo.txt").exists() {
         bail!("{OLD_METHOD_ERR}");
     }
 
@@ -194,15 +194,15 @@ fn main() -> Result<ExitCode> {
 }
 
 const OLD_METHOD_ERR: &str =
-    "You are trying to run Rustlings using the old method before version 6.
-The new method doesn't include cloning the Rustlings' repository.
+    "You are trying to run Clings using the old method before version 6.
+The new method doesn't include cloning the Clings' repository.
 Please follow the instructions in `README.md`:
-https://github.com/rust-lang/rustlings#getting-started";
+https://github.com/tamimehsan/clings#getting-started";
 
 const FORMAT_VERSION_HIGHER_ERR: &str =
     "The format version specified in the `info.toml` file is higher than the last one supported.
-It is possible that you have an outdated version of Rustlings.
-Try to install the latest Rustlings version first.";
+It is possible that you have an outdated version of Clings.
+Try to install the latest Clings version first.";
 
 const PRE_INIT_MSG: &str = r"
        Welcome to...

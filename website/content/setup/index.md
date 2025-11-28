@@ -6,7 +6,7 @@ title = "Setup"
 
 ## Installing Rust
 
-Before installing Rustlings, you must have the **latest version of Rust** installed.
+Before installing Clings, you must have the **latest version of Rust** installed.
 Visit [www.rust-lang.org/tools/install](https://www.rust-lang.org/tools/install) for further instructions.
 This will also install _Cargo_, Rust's package/project manager.
 
@@ -17,31 +17,31 @@ This will also install _Cargo_, Rust's package/project manager.
 
 > 🍎 If you are on **MacOS**, make sure you have _Xcode and its developer tools_ installed: `xcode-select --install`
 
-## Installing Rustlings
+## Installing Clings
 
-The following command will download and compile Rustlings:
+The following command will download and compile Clings:
 
 ```bash
-cargo install rustlings
+cargo install clings
 ```
 
 {% details(summary="If the installation fails…") %}
 
 - Make sure you have the latest Rust version by running `rustup update`
-- Try adding the `--locked` flag: `cargo install rustlings --locked`
-- Otherwise, please [report the issue](https://github.com/rust-lang/rustlings/issues/new)
+- Try adding the `--locked` flag: `cargo install clings --locked`
+- Otherwise, please [report the issue](https://github.com/rust-lang/clings/issues/new)
 
 {% end %}
 
 ## Initialization
 
-After installing Rustlings, run the following command to initialize the `rustlings/` directory:
+After installing Clings, run the following command to initialize the `clings/` directory:
 
 ```bash
-rustlings init
+clings init
 ```
 
-{% details(summary="If the command <code>rustlings</code> can't be found…") %}
+{% details(summary="If the command <code>clings</code> can't be found…") %}
 
 You are probably using Linux and installed Rust using your package manager.
 
@@ -53,11 +53,11 @@ Sadly, package managers often don't add `~/.cargo/bin` to your `PATH` environmen
 
 {% end %}
 
-Now, go into the newly initialized directory and launch Rustlings for further instructions on getting started with the exercises:
+Now, go into the newly initialized directory and launch Clings for further instructions on getting started with the exercises:
 
 ```bash
-cd rustlings/
-rustlings
+cd clings/
+clings
 ```
 
 ## Working environment
@@ -69,10 +69,10 @@ But any editor that supports [rust-analyzer](https://rust-analyzer.github.io/) s
 
 ### Terminal
 
-While working with Rustlings, please use a modern terminal for the best user experience.
+While working with Clings, please use a modern terminal for the best user experience.
 The default terminal on Linux and Mac should be sufficient.
 On Windows, we recommend the [Windows Terminal](https://aka.ms/terminal).
 
 ## Usage
 
-After being done with the setup, visit the [**usage**](@/usage/index.md) page for some info about using Rustlings 🚀
+After being done with the setup, visit the [**usage**](@/usage/index.md) page for some info about using Clings 🚀

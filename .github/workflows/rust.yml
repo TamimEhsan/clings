@@ -43,5 +43,5 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: swatinem/rust-cache@v2
-      - name: rustlings dev check
+      - name: clings dev check
         run: cargo dev check --require-solutions

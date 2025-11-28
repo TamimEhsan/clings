@@ -23,9 +23,9 @@ struct CargoLocateProject {
 }
 
 pub fn init() -> Result<()> {
-    let rustlings_dir = Path::new("rustlings");
-    if rustlings_dir.exists() {
-        bail!(RUSTLINGS_DIR_ALREADY_EXISTS_ERR);
+    let clings_dir = Path::new("clings");
+    if clings_dir.exists() {
+        bail!(CLINGS_DIR_ALREADY_EXISTS_ERR);
     }
 
     let locate_project_output = Command::new("cargo")
@@ -53,7 +53,7 @@ pub fn init() -> Result<()> {
     {
         bail!(
             "Clippy, the official Rust linter, is missing.\n\
-             Please install it first before initializing Rustlings."
+             Please install it first before initializing Clings."
         )
     }
 
@@ -79,57 +79,57 @@ pub fn init() -> Result<()> {
         {
             bail!(
                 "The current directory is already part of a Cargo project.\n\
-                 Please initialize Rustlings in a different directory"
+                 Please initialize Clings in a different directory"
             );
         }
 
-        stdout.write_all(b"This command will create the directory `rustlings/` as a member of this Cargo workspace.\n\
+        stdout.write_all(b"This command will create the directory `clings/` as a member of this Cargo workspace.\n\
                            Press ENTER to continue ")?;
         press_enter_prompt(&mut stdout)?;
 
-        // Make sure "rustlings" is added to `workspace.members` by making
+        // Make sure "clings" is added to `workspace.members` by making
         // Cargo initialize a new project.
         let status = Command::new("cargo")
             .arg("new")
             .arg("-q")
             .arg("--vcs")
             .arg("none")
-            .arg("rustlings")
+            .arg("clings")
             .stdin(Stdio::null())
             .stdout(Stdio::null())
             .status()?;
         if !status.success() {
             bail!(
                 "Failed to initialize a new Cargo workspace member.\n\
-                 Please initialize Rustlings in a different directory"
+                 Please initialize Clings in a different directory"
             );
         }
 
-        stdout.write_all(b"The directory `rustlings` has been added to `workspace.members` in the `Cargo.toml` file of this Cargo workspace.\n")?;
-        fs::remove_dir_all("rustlings")
-            .context("Failed to remove the temporary directory `rustlings/`")?;
+        stdout.write_all(b"The directory `clings` has been added to `workspace.members` in the `Cargo.toml` file of this Cargo workspace.\n")?;
+        fs::remove_dir_all("clings")
+            .context("Failed to remove the temporary directory `clings/`")?;
         init_git = false;
     } else {
-        stdout.write_all(b"This command will create the directory `rustlings/` which will contain the exercises.\n\
+        stdout.write_all(b"This command will create the directory `clings/` which will contain the exercises.\n\
                            Press ENTER to continue ")?;
         press_enter_prompt(&mut stdout)?;
     }
 
-    create_dir(rustlings_dir).context("Failed to create the `rustlings/` directory")?;
-    set_current_dir(rustlings_dir)
-        .context("Failed to change the current directory to `rustlings/`")?;
+    create_dir(clings_dir).context("Failed to create the `clings/` directory")?;
+    set_current_dir(clings_dir)
+        .context("Failed to change the current directory to `clings/`")?;
 
     let info_file = InfoFile::parse()?;
     EMBEDDED_FILES
         .init_exercises_dir(&info_file.exercises)
-        .context("Failed to initialize the `rustlings/exercises` directory")?;
+        .context("Failed to initialize the `clings/exercises` directory")?;
 
     create_dir("solutions").context("Failed to create the `solutions/` directory")?;
     fs::write(
         "solutions/README.md",
         include_bytes!("../solutions/README.md"),
     )
-    .context("Failed to create the file rustlings/solutions/README.md")?;
+    .context("Failed to create the file clings/solutions/README.md")?;
     for dir in EMBEDDED_FILES.exercise_dirs {
         let mut dir_path = String::with_capacity(10 + dir.name.len());
         dir_path.push_str("solutions/");
@@ -156,17 +156,17 @@ pub fn init() -> Result<()> {
     let updated_cargo_toml = updated_cargo_toml(&info_file.exercises, current_cargo_toml, b"")
         .context("Failed to generate `Cargo.toml`")?;
     fs::write("Cargo.toml", updated_cargo_toml)
-        .context("Failed to create the file `rustlings/Cargo.toml`")?;
+        .context("Failed to create the file `clings/Cargo.toml`")?;
 
     fs::write("rust-analyzer.toml", RUST_ANALYZER_TOML)
-        .context("Failed to create the file `rustlings/rust-analyzer.toml`")?;
+        .context("Failed to create the file `clings/rust-analyzer.toml`")?;
 
     fs::write(".gitignore", GITIGNORE)
-        .context("Failed to create the file `rustlings/.gitignore`")?;
+        .context("Failed to create the file `clings/.gitignore`")?;
 
-    create_dir(".vscode").context("Failed to create the directory `rustlings/.vscode`")?;
+    create_dir(".vscode").context("Failed to create the directory `clings/.vscode`")?;
     fs::write(".vscode/extensions.json", VS_CODE_EXTENSIONS_JSON)
-        .context("Failed to create the file `rustlings/.vscode/extensions.json`")?;
+        .context("Failed to create the file `clings/.vscode/extensions.json`")?;
 
     if init_git {
         // Ignore any Git error because Git initialization is not required.
@@ -208,17 +208,17 @@ target/
 
 pub const VS_CODE_EXTENSIONS_JSON: &[u8] = br#"{"recommendations":["rust-lang.rust-analyzer"]}"#;
 
-const IN_INITIALIZED_DIR_ERR: &str = "It looks like Rustlings is already initialized in this directory.
+const IN_INITIALIZED_DIR_ERR: &str = "It looks like Clings is already initialized in this directory.
 
-If you already initialized Rustlings, run the command `rustlings` for instructions on getting started with the exercises.
-Otherwise, please run `rustlings init` again in a different directory.";
+If you already initialized Clings, run the command `clings` for instructions on getting started with the exercises.
+Otherwise, please run `clings init` again in a different directory.";
 
-const RUSTLINGS_DIR_ALREADY_EXISTS_ERR: &str =
-    "A directory with the name `rustlings` already exists in the current directory.
-You probably already initialized Rustlings.
-Run `cd rustlings`
-Then run `rustlings` again";
+const CLINGS_DIR_ALREADY_EXISTS_ERR: &str =
+    "A directory with the name `clings` already exists in the current directory.
+You probably already initialized Clings.
+Run `cd clings`
+Then run `clings` again";
 
-const POST_INIT_MSG: &[u8] = b"Run `cd rustlings` to go into the generated directory.
-Then run `rustlings` to get started.
+const POST_INIT_MSG: &[u8] = b"Run `cd clings` to go into the generated directory.
+Then run `clings` to get started.
 ";

@@ -23,7 +23,7 @@ use crate::{
     term::{self, CheckProgressVisualizer},
 };
 
-const STATE_FILE_NAME: &str = ".rustlings-state.txt";
+const STATE_FILE_NAME: &str = ".clings-state.txt";
 const DEFAULT_CHECK_PARALLELISM: usize = 8;
 
 #[must_use]

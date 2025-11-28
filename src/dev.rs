@@ -43,4 +43,4 @@ impl DevCommands {
 }
 
 const INIT_ERR: &str = "Initialization failed.
-After resolving the issue, delete the `rustlings` directory (if it was created) and try again";
+After resolving the issue, delete the `clings` directory (if it was created) and try again";

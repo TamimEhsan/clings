@@ -1,4 +1,4 @@
-# Contributing to Rustlings
+# Contributing to Clings
 
 First off, thanks for taking the time to contribute! ❤️
 
@@ -12,7 +12,7 @@ I want to …
 - _add an exercise!_ ➡️ [read this](#adding-an-exercise)
 - _update an outdated exercise!_ ➡️ [open a pull request](#pull-requests)
 
-## Issues
+## Issues With Code
 
 You can open an issue [here](https://github.com/rust-lang/rustlings/issues/new).
 If you're reporting a bug, please include the output of the following commands:
@@ -21,6 +21,11 @@ If you're reporting a bug, please include the output of the following commands:
 - `rustlings --version`
 - `ls -la`
 - Your OS name and version
+
+## Issues With Exercises
+
+You can open an issue [here](https://github.com/tamimehsan/clings/issues/new).
+If you're reporting a bug, please include the output of the following commands:
 
 ## Pull Requests
 

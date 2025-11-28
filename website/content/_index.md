@@ -9,13 +9,13 @@ Small exercises to get you used to reading and writing C code. Cling is inspired
 
 ```bash
 # Installation
-cargo install rustlings
+cargo install clings
 # Initialization
-rustlings init
+clings init
 # Moving into new directory
-cd rustlings
-# Starting Rustlings
-rustlings
+cd clings
+# Starting Clings
+clings
 ```
 
 Visit the [**setup**](@/setup/index.md) page for more details 🧰
