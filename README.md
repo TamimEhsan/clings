@@ -1,7 +1,8 @@
-# [Rustlings](https://rustlings.rust-lang.org) 🦀
+# Clings
 
-Small exercises to get you used to reading and writing [Rust](https://www.rust-lang.org) code - _Recommended in parallel to reading [the official Rust book](https://doc.rust-lang.org/book) 📚️_
+Small exercises to get you used to reading and writing C code. Cling is inspired and forked from [rustlings](https://github.com/rust-lang/rustlings)
 
-Visit the **website** for a demo, info about setup and more:
+Visit the **website** for a demo, info about setup and more: ➡️ [Clings](https://tamimehsan.github.io/clings/) ⬅️
 
-## ➡️ [rustlings.rust-lang.org](https://rustlings.rust-lang.org) ⬅️
+> [!NOTE]
+> The migration of websites, documentation and codebase is an ongoing process. All kinds of contributions are welcome. In the meantime the main engine will remain in rust.

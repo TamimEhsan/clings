@@ -1,22 +1,22 @@
 format_version = 1
 
 welcome_message = """
-Is this your first time? Don't worry, Rustlings is made for beginners!
+Is this your first time? Don't worry, Clings is made for beginners!
 We are going to teach you a lot of things about Rust, but before we can
-get started, here are some notes about how Rustlings operates:
+get started, here are some notes about how Clings operates:
 
-1. The central concept behind Rustlings is that you solve exercises. These
+1. The central concept behind Clings is that you solve exercises. These
    exercises usually contain some compiler or logic errors which cause the
    exercise to fail compilation or testing. It's your job to find all errors
    and fix them!
-2. Make sure to have your editor open in the `rustlings/` directory. Rustlings
+2. Make sure to have your editor open in the `clings/` directory. Clings
    will show you the path of the current exercise under the progress bar. Open
-   the exercise file in your editor, fix errors and save the file. Rustlings
+   the exercise file in your editor, fix errors and save the file. Clings
    will automatically detect the file change and rerun the exercise. If all
-   errors are fixed, Rustlings will ask you to move on to the next exercise.
+   errors are fixed, Clings will ask you to move on to the next exercise.
 3. If you're stuck on an exercise, enter `h` to show a hint.
 4. If an exercise doesn't make sense to you, feel free to open an issue on
-   GitHub! (https://github.com/rust-lang/rustlings). We look at every issue, and
+   GitHub! (https://github.com/rust-lang/clings). We look at every issue, and
    sometimes, other learners do too so you can help each other out!"""
 
 final_message = """
@@ -25,7 +25,7 @@ If you noticed any issues, don't hesitate to report them on Github.
 You can also contribute your own exercises to help the greater community!
 
 Before reporting an issue or contributing, please read our guidelines:
-https://github.com/rust-lang/rustlings/blob/main/CONTRIBUTING.md"""
+https://github.com/rust-lang/clings/blob/main/CONTRIBUTING.md"""
 
 # INTRO
 

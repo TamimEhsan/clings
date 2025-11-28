@@ -123,6 +123,22 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b94f61472cee1439c0b966b47e3aca9ae07e45d070759512cd390ea2bebc6675"
 
 [[package]]
+name = "clings"
+version = "6.5.0"
+dependencies = [
+ "anyhow",
+ "clap",
+ "crossterm",
+ "notify",
+ "rustix",
+ "rustlings-macros",
+ "serde",
+ "serde_json",
+ "tempfile",
+ "toml",
+]
+
+[[package]]
 name = "colorchoice"
 version = "1.0.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -435,22 +451,6 @@ dependencies = [
  "libc",
  "linux-raw-sys",
  "windows-sys 0.60.2",
-]
-
-[[package]]
-name = "rustlings"
-version = "6.5.0"
-dependencies = [
- "anyhow",
- "clap",
- "crossterm",
- "notify",
- "rustix",
- "rustlings-macros",
- "serde",
- "serde_json",
- "tempfile",
- "toml",
 ]
 
 [[package]]

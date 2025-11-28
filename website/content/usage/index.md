@@ -18,7 +18,7 @@ Ask for hints by entering `h` in the _watch mode_ 💡
 
 ## Watch Mode
 
-After the [initialization](@/setup/index.md#initialization), Rustlings can be launched by simply running the command `rustlings`.
+After the [initialization](@/setup/index.md#initialization), Clings can be launched by simply running the command `rustlings`.
 
 This will start the _watch mode_ which walks you through the exercises in a predefined order (what we think is best for newcomers).
 It will rerun the current exercise automatically every time you change the exercise's file in the `exercises/` directory.
@@ -45,7 +45,7 @@ See the footer of the list for all possible keys.
 
 ## Questions?
 
-If you need any help while doing the exercises and the builtin hints aren't helpful, feel free to ask in the [_Q&A_ discussions](https://github.com/rust-lang/rustlings/discussions/categories/q-a?discussions_q=) if your question isn't answered there 💡
+If you need any help while doing the exercises and the builtin hints aren't helpful, feel free to ask in the [_Q&A_ discussions](https://github.com/tamimehsan/clings/discussions/categories/q-a?discussions_q=) if your question isn't answered there 💡
 
 ## Continuing On
 
