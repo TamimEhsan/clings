@@ -128,13 +128,22 @@ version = "6.5.0"
 dependencies = [
  "anyhow",
  "clap",
+ "clings-macros",
  "crossterm",
  "notify",
  "rustix",
- "rustlings-macros",
  "serde",
  "serde_json",
  "tempfile",
+ "toml",
+]
+
+[[package]]
+name = "clings-macros"
+version = "6.5.0"
+dependencies = [
+ "quote",
+ "serde",
  "toml",
 ]
 
@@ -451,15 +460,6 @@ dependencies = [
  "libc",
  "linux-raw-sys",
  "windows-sys 0.60.2",
-]
-
-[[package]]
-name = "rustlings-macros"
-version = "6.5.0"
-dependencies = [
- "quote",
- "serde",
- "toml",
 ]
 
 [[package]]

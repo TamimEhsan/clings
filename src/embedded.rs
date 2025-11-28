@@ -7,7 +7,7 @@ use std::{
 use crate::info_file::ExerciseInfo;
 
 /// Contains all embedded files.
-pub static EMBEDDED_FILES: EmbeddedFiles = rustlings_macros::include_files!();
+pub static EMBEDDED_FILES: EmbeddedFiles = clings_macros::include_files!();
 
 // Files related to one exercise.
 struct ExerciseFiles {
