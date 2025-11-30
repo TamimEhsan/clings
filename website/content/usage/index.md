@@ -50,6 +50,6 @@ If you need any help while doing the exercises and the builtin hints aren't help
 ## Continuing On
 
 Once you've completed Clings, put your new knowledge to good use!
-Continue practicing your Rust skills by building your own projects, contributing to Clings, or finding other open-source projects to contribute to.
+Continue practicing your C skills by building your own projects, contributing to Clings, or finding other open-source projects to contribute to.
 
 > If you want to create your own Clings exercises, visit the [**community exercises**](@/community-exercises/index.md) page 🏗️
