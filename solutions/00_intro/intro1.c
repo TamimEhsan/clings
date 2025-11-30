@@ -1,8 +1,6 @@
-#include <stdio.h>
-
 int main() {
-    int x = 5;  // Completed: declared and initialized x
-    
-    printf("x has the value %d\n", x);
+    // This is a minimal C program that does nothing.
+    // C program execution starts from the main function.
+    // int indicates that this function returns an integer value.
     return 0;
 }

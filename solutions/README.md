@@ -1,4 +1,4 @@
-# Official Rustlings solutions
+# Official Clings solutions
 
 Before you finish an exercise, its solution file will only contain an empty `main` function.
 The content of this file will be automatically replaced by the actual solution once you finish the exercise.

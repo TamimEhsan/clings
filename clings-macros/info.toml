@@ -2,7 +2,7 @@ format_version = 1
 
 welcome_message = """
 Is this your first time? Don't worry, Clings is made for beginners!
-We are going to teach you a lot of things about Rust, but before we can
+We are going to teach you a lot of things about C, but before we can
 get started, here are some notes about how Clings operates:
 
 1. The central concept behind Clings is that you solve exercises. These
@@ -16,16 +16,16 @@ get started, here are some notes about how Clings operates:
    errors are fixed, Clings will ask you to move on to the next exercise.
 3. If you're stuck on an exercise, enter `h` to show a hint.
 4. If an exercise doesn't make sense to you, feel free to open an issue on
-   GitHub! (https://github.com/rust-lang/clings). We look at every issue, and
+   GitHub! (https://github.com/tamimehsan/clings). We look at every issue, and
    sometimes, other learners do too so you can help each other out!"""
 
 final_message = """
-We hope you enjoyed learning about the various aspects of Rust!
+We hope you enjoyed learning about the various aspects of C!
 If you noticed any issues, don't hesitate to report them on Github.
 You can also contribute your own exercises to help the greater community!
 
 Before reporting an issue or contributing, please read our guidelines:
-https://github.com/rust-lang/clings/blob/main/CONTRIBUTING.md"""
+https://github.com/tamimehsan/clings/blob/main/CONTRIBUTING.md"""
 
 # INTRO
 
@@ -33,8 +33,14 @@ https://github.com/rust-lang/clings/blob/main/CONTRIBUTING.md"""
 name = "intro1"
 dir = "00_intro"
 hint = """
-In C, you need to declare variables with their type before using them.
-Try: int x = 5;
+You do not need to do anything here, just read the instructions!
+"""
+
+[[exercises]]
+name = "intro2"
+dir = "00_intro"
+hint = """
+You need to import the standard input/output library to use printf.
 """
 
 # VARIABLE
@@ -47,12 +53,89 @@ C variables must be declared with their type.
 Try: int x = 5;
 """
 
+[[exercises]]
+name = "variables2" 
+dir = "01_variables"
+hint = """
+C variables are initialized with a garbage value if not explicitly set.
+Try: int x = 0;
+"""
+
+[[exercises]]
+name = "variables3" 
+dir = "01_variables"
+hint = """
+C allows auto casting between compatible types, but not between incompatible types.
+"""
+
+[[exercises]]
+name = "variables3" 
+dir = "01_variables"
+hint = """
+C allows auto casting between compatible types, booleans are mapped to integers as 0 and 1.
+"""
+
 # FUNCTION
 
 [[exercises]]
 name = "functions1"
 dir = "02_functions" 
 hint = """
+Define an empty function with void return type.
+"""
+
+[[exercises]]
+name = "functions2"
+dir = "02_functions" 
+hint = """
+Add parameters to the function definition.
+"""
+
+[[exercises]]
+name = "functions3"
+dir = "02_functions" 
+hint = """
+Add arguments to the function call.
+"""
+
+[[exercises]]
+name = "functions4"
+dir = "02_functions" 
+hint = """
 C functions need explicit return types and parameter types.
 Try: int add_two_numbers(int a, int b) { return a + b; }
+"""
+
+# CONTROL FLOW
+
+[[exercises]]
+name = "if1"
+dir = "03_if" 
+hint = """
+Use if conditional statements to find the largest number.
+"""
+
+[[exercises]]
+name = "if2"
+dir = "03_if"
+hint = """
+Use return types in each branch of the if statement.
+"""
+
+# LOOPS
+
+[[exercises]]
+name = "loops1"
+dir = "04_loops" 
+hint = """
+For loops in C has three parts: initialization, condition and increment.
+Try: for (initialization; condition; increment)
+"""
+
+[[exercises]]
+name = "loops2"
+dir = "04_loops" 
+hint = """
+While loops in C only have a condition.
+Try: while (condition)
 """
