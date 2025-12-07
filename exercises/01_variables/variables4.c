@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <stdbool.h>
+#include <assert.h>
 
 int main() {
     bool is_valid = true;

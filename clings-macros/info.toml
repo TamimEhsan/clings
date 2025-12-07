@@ -75,35 +75,58 @@ hint = """
 C allows auto casting between compatible types, booleans are mapped to integers as 0 and 1.
 """
 
-# FUNCTION
-
 [[exercises]]
-name = "functions1"
-dir = "02_functions" 
+name = "variables4" 
+dir = "01_variables"
 hint = """
-Define an empty function with void return type.
+C doesn't allow using reserved keywords as variable names and variable names cannot start with a number or operators.
 """
 
 [[exercises]]
-name = "functions2"
-dir = "02_functions" 
+name = "variables5" 
+dir = "01_variables"
 hint = """
-Add parameters to the function definition.
+Declare a global variable outside of any function.
 """
 
 [[exercises]]
-name = "functions3"
-dir = "02_functions" 
+name = "variables6" 
+dir = "01_variables"
 hint = """
-Add arguments to the function call.
+Variables declared inside a child scope shadow variables with the same name in the parent scope.
+"""
+
+# Operators
+
+[[exercises]]
+name = "operators1"
+dir = "02_operators"
+hint = """
+Using ++a increments the value of a before using it in an expression.
+Using a++ increments the value of a after using it in an expression.
 """
 
 [[exercises]]
-name = "functions4"
-dir = "02_functions" 
+name = "operators2"
+dir = "02_operators"
 hint = """
-C functions need explicit return types and parameter types.
-Try: int add_two_numbers(int a, int b) { return a + b; }
+Use normal arithmetic operations
+"""
+
+[[exercises]]
+name = "operators3"
+dir = "02_operators"
+hint = """
+Ternary operator syntax: condition ? value_if_true : value_if_false
+"""
+
+[[exercises]]
+name = "operators4"
+dir = "02_operators"
+hint = """
+Generally expressions inside parentheses are evaluated first. Then multiplication
+and division are evaluated from left to right. Finally addition and subtraction
+are evaluated from left to right.
 """
 
 # CONTROL FLOW
@@ -138,4 +161,101 @@ dir = "04_loops"
 hint = """
 While loops in C only have a condition.
 Try: while (condition)
+"""
+
+# FUNCTION
+
+[[exercises]]
+name = "functions1"
+dir = "05_functions" 
+hint = """
+Define an empty function with void return type.
+"""
+
+[[exercises]]
+name = "functions2"
+dir = "05_functions" 
+hint = """
+Add parameters to the function definition.
+"""
+
+[[exercises]]
+name = "functions3"
+dir = "05_functions" 
+hint = """
+Add arguments to the function call.
+"""
+
+[[exercises]]
+name = "functions4"
+dir = "05_functions" 
+hint = """
+C functions need explicit return types and parameter types.
+Try: int add_two_numbers(int a, int b) { return a + b; }
+"""
+
+[[exercises]]
+name = "functions5"
+dir = "05_functions" 
+hint = """
+You need to define a function prototype if it is written after where it is used.
+"""
+
+[[exercises]]
+name = "functions6"
+dir = "05_functions" 
+hint = """
+Use va_list, va_start, va_arg and va_end macros to handle variable number of arguments.
+"""
+
+# Arrays
+
+[[exercises]]
+name = "arrays1"
+dir = "06_arrays" 
+hint = """
+Try defining an array of integers with a fixed size.
+"""
+
+[[exercises]]
+name = "arrays2"
+dir = "06_arrays" 
+hint = """
+Use a loop to iterate through the array elements and calculate the sum.
+"""
+
+[[exercises]]
+name = "arrays3"
+dir = "06_arrays" 
+hint = """
+Use int arr[] as the parameter type to accept an array in the function.
+"""
+
+[[exercises]]
+name = "arrays4"
+dir = "06_arrays" 
+hint = """
+"""
+
+# Pointers
+
+[[exercises]]
+name = "pointers1"
+dir = "07_pointers"
+hint = """
+Use the & operator to get the address of a variable and assign it to a pointer variable declared with *.
+"""
+
+[[exercises]]
+name = "pointers2"
+dir = "07_pointers"
+hint = """
+Try incrementing the pointer to point to the next element in the array and dereference it to get the value.
+"""
+
+[[exercises]]
+name = "pointers3"
+dir = "07_pointers"
+hint = """
+Use a pointer to modify the value of the variables in the swap function.
 """
